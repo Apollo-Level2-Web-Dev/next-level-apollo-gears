@@ -45,15 +45,21 @@ export async function middleware(request: NextRequest) {
   console.log(role, "role");
   console.log(pathname, "pathname");
 
-  if (role === "admin" && pathname === "/admin-dashboard") {
+  // /admin-dashboard - ok
+  // /admin-dashboard/car-management - ok
+  if (role === "admin" && pathname.match(/^\/admin-dashboard/)) {
     return NextResponse.next();
   }
 
-  if (role === "driver" && pathname === "/driver-dashboard") {
+  if (role === "driver" && pathname.match(/^\/driver-dashboard/)) {
     return NextResponse.next();
   }
 
-  if (role === "user" && pathname === "/dashboard") {
+  // /dashboard , /dashboard/my-requested-rides , /profile
+  if (role === "user" && pathname.match(/^\/dashboard/)) {
+    return NextResponse.next();
+  }
+  if (role === "user" && pathname === "/profile") {
     return NextResponse.next();
   }
 
